@@ -60,18 +60,11 @@ const (
 
 func Countdown(out io.Writer, sleeper Sleeper) {
 	for i := range countDownFrom(3) {
-		_, err := fmt.Fprintln(out, i)
-		if err != nil {
-			log.Fatal(err)
-		}
-
+		fmt.Fprintln(out, i) // nolint:errcheck
 		sleeper.Sleep()
 	}
 
-	_, err := fmt.Fprint(out, finalWord)
-	if err != nil {
-		log.Fatal(err)
-	}
+	fmt.Fprint(out, finalWord) // nolint:errcheck
 }
 
 func countDownFrom(from int) iter.Seq[int] {

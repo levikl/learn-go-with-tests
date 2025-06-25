@@ -8,10 +8,7 @@ import (
 )
 
 func Greet(writer io.Writer, name string) {
-	_, err := fmt.Fprintf(writer, "Hello, %s", name)
-	if err != nil {
-		log.Fatal(err)
-	}
+	fmt.Fprintf(writer, "Hello, %s", name) // nolint:errcheck
 }
 
 func MyGreeterHandler(w http.ResponseWriter, r *http.Request) {
