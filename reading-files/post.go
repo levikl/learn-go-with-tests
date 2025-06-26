@@ -7,10 +7,8 @@ import (
 )
 
 type Post struct {
-	Title       string
-	Description string
-	Tags        []string
-	Body        string
+	Title, Description, Body string
+	Tags                     []string
 }
 
 const (
@@ -37,14 +35,9 @@ func newPost(postFile io.Reader) (Post, error) {
 
 func readBody(scanner *bufio.Scanner) string {
 	scanner.Scan() // consume '---' line
-
-	var result strings.Builder
-
+	var body strings.Builder
 	for scanner.Scan() {
-		text := scanner.Text()
-		result.WriteString(text)
-		result.WriteString("\n")
+		body.WriteString(scanner.Text() + "\n")
 	}
-
-	return strings.TrimSuffix(result.String(), "\n")
+	return strings.TrimSuffix(body.String(), "\n")
 }
