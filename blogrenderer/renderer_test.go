@@ -12,8 +12,12 @@ import (
 
 func TestRender(t *testing.T) {
 	aPost := blogrenderer.Post{
-		Title:       "hello world",
-		Body:        "This is a post",
+		Title: "hello world",
+		Body: `# header
+
+Sample text.
+
+[link](http://example.com)`,
 		Description: "This is a description",
 		Tags:        []string{"go", "tdd"},
 	}
