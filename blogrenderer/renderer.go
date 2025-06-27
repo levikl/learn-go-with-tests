@@ -14,13 +14,21 @@ type Post struct {
 //go:embed "templates/*"
 var postTemplates embed.FS
 
-func Render(w io.Writer, p Post) error {
+type PostRenderer struct {
+	templ *template.Template
+}
+
+func NewPostRenderer() (*PostRenderer, error) {
 	templ, err := template.ParseFS(postTemplates, "templates/*.gohtml")
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	if err := templ.ExecuteTemplate(w, "blog.gohtml", p); err != nil {
+	return &PostRenderer{templ: templ}, nil
+}
+
+func (r *PostRenderer) Render(w io.Writer, p Post) error {
+	if err := r.templ.ExecuteTemplate(w, "blog.gohtml", p); err != nil {
 		return err
 	}
 
