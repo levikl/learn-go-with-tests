@@ -9,11 +9,6 @@ import (
 	"github.com/gomarkdown/markdown/parser"
 )
 
-type Post struct {
-	Title, Description, Body string
-	Tags                     []string
-}
-
 //go:embed "templates/*"
 var postTemplates embed.FS
 
