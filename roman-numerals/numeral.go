@@ -37,7 +37,7 @@ func ConvertToRoman(arabic uint16) string {
 }
 
 func ConvertToArabic(roman string) uint16 {
-	var arabic uint16 = 0
+	var arabic uint16
 
 	for _, numeral := range allRomanNumerals {
 		// using `for` as a `while true` loop

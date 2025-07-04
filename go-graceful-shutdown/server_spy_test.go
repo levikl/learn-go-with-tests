@@ -32,7 +32,7 @@ func (s *SpyServer) AssertListened(t *testing.T) {
 	assert.SignalSent(t, s.listened, "listen")
 }
 
-func (s *SpyServer) Shutdown(ctx context.Context) error {
+func (s *SpyServer) Shutdown(_ context.Context) error {
 	s.shutdown <- struct{}{}
 	return s.ShutdownFunc()
 }

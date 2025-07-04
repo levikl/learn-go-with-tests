@@ -11,7 +11,7 @@ func Greet(writer io.Writer, name string) {
 	fmt.Fprintf(writer, "Hello, %s", name) // nolint:errcheck
 }
 
-func MyGreeterHandler(w http.ResponseWriter, r *http.Request) {
+func MyGreeterHandler(w http.ResponseWriter, _ *http.Request) {
 	Greet(w, "world")
 }
 

@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func SlowHandler(w http.ResponseWriter, r *http.Request) {
+func SlowHandler(w http.ResponseWriter, _ *http.Request) {
 	time.Sleep(2 * time.Second)
-	fmt.Fprint(w, "Hello, world") // nolint:errcheck
+	fmt.Fprint(w, "Hello, world")
 }

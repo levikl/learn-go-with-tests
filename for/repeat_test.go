@@ -19,7 +19,7 @@ func ExampleRepeat() {
 	// Output: aaaa
 }
 
-// run this benchmark with `go test -bench=. -benchmem`
+// run this benchmark with `go test -bench=. -benchmem`.
 func BenchmarkRepeat(b *testing.B) {
 	for b.Loop() {
 		Repeat("a", 5)

@@ -55,7 +55,7 @@ func (s *SpyResponseWriter) Write([]byte) (int, error) {
 	return 0, errors.New("not implemented")
 }
 
-func (s *SpyResponseWriter) WriteHeader(statusCode int) {
+func (s *SpyResponseWriter) WriteHeader(_ int) {
 	s.written = true
 }
 
@@ -91,7 +91,7 @@ func TestServer(t *testing.T) {
 		svr.ServeHTTP(response, request)
 
 		if response.written {
-			t.Error("a reponse should not have been written")
+			t.Error("a response should not have been written")
 		}
 	})
 }
