@@ -12,7 +12,7 @@ func TestRecordingWinsAndRetrievingThem(t *testing.T) {
 	const player string = "Pepper"
 
 	t.Run(`GET "/players/%s" returns "3" after recording 3 wins via POST`, func(t *testing.T) {
-		server := PlayerServer{NewInMemoryPlayerStore()}
+		server := NewPlayerServer(NewInMemoryPlayerStore())
 		wins := 3
 
 		for range wins {
@@ -27,7 +27,7 @@ func TestRecordingWinsAndRetrievingThem(t *testing.T) {
 	})
 
 	t.Run("it runs safely concurrently", func(t *testing.T) {
-		server := PlayerServer{NewInMemoryPlayerStore()}
+		server := NewPlayerServer(NewInMemoryPlayerStore())
 		wins := 1000
 
 		var wg sync.WaitGroup
