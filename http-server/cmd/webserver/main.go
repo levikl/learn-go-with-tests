@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/levikl/learn-go-with-tests/http-server"
 	"log"
 	"net/http"
 	"os"
@@ -14,12 +15,12 @@ func main() {
 		log.Fatalf("problem opening %s %v", dbFileName, err)
 	}
 
-	store, err := NewFileSystemPlayerStore(db)
+	store, err := poker.NewFileSystemPlayerStore(db)
 	if err != nil {
 		log.Fatalf("problem creating file system player store, %v", err)
 	}
 
-	server := NewPlayerServer(store)
+	server := poker.NewPlayerServer(store)
 
 	if err := http.ListenAndServe(":3210", server); err != nil {
 		log.Fatalf("could not listen on port 3210 %v", err)
