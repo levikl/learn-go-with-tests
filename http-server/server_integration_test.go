@@ -13,7 +13,7 @@ func TestRecordingWinsAndRetrievingThem(t *testing.T) {
 	defer cleanDatabase()
 
 	store, err := NewFileSystemPlayerStore(database)
-	assertNoError(t, err)
+	AssertNoError(t, err)
 
 	server := NewPlayerServer(store)
 	player := "Pepper"
@@ -26,21 +26,21 @@ func TestRecordingWinsAndRetrievingThem(t *testing.T) {
 	t.Run("get score", func(t *testing.T) {
 		response := httptest.NewRecorder()
 		server.ServeHTTP(response, newGetScoreRequest(player))
-		assertStatus(t, response.Code, http.StatusOK)
+		AssertStatus(t, response.Code, http.StatusOK)
 
-		assertResponseBody(t, response.Body.String(), strconv.Itoa(wins))
+		AssertResponseBody(t, response.Body.String(), strconv.Itoa(wins))
 	})
 
 	t.Run("get league", func(t *testing.T) {
 		response := httptest.NewRecorder()
 		server.ServeHTTP(response, newLeagueRequest())
-		assertStatus(t, response.Code, http.StatusOK)
+		AssertStatus(t, response.Code, http.StatusOK)
 
 		got := getLeagueFromResponse(t, response.Body)
 		want := []Player{
 			{"Pepper", wins},
 		}
-		assertLeague(t, got, want)
+		AssertLeague(t, got, want)
 	})
 }
 
@@ -49,7 +49,7 @@ func TestConcurrency(t *testing.T) {
 	defer cleanDatabase()
 
 	store, err := NewFileSystemPlayerStore(database)
-	assertNoError(t, err)
+	AssertNoError(t, err)
 
 	server := NewPlayerServer(store)
 	player := "Vegeta"
@@ -69,20 +69,20 @@ func TestConcurrency(t *testing.T) {
 	t.Run("get score", func(t *testing.T) {
 		response := httptest.NewRecorder()
 		server.ServeHTTP(response, newGetScoreRequest(player))
-		assertStatus(t, response.Code, http.StatusOK)
+		AssertStatus(t, response.Code, http.StatusOK)
 
-		assertResponseBody(t, response.Body.String(), strconv.Itoa(wins))
+		AssertResponseBody(t, response.Body.String(), strconv.Itoa(wins))
 	})
 
 	t.Run("get league", func(t *testing.T) {
 		response := httptest.NewRecorder()
 		server.ServeHTTP(response, newLeagueRequest())
-		assertStatus(t, response.Code, http.StatusOK)
+		AssertStatus(t, response.Code, http.StatusOK)
 
 		got := getLeagueFromResponse(t, response.Body)
 		want := []Player{
 			{"Vegeta", wins},
 		}
-		assertLeague(t, got, want)
+		AssertLeague(t, got, want)
 	})
 }

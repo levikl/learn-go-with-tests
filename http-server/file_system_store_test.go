@@ -13,7 +13,7 @@ func TestFileSystemStore(t *testing.T) {
 		defer cleanDatabase()
 
 		store, err := NewFileSystemPlayerStore(database)
-		assertNoError(t, err)
+		AssertNoError(t, err)
 
 		want := []Player{
 			{"Chris", 33},
@@ -23,7 +23,7 @@ func TestFileSystemStore(t *testing.T) {
 		// read from store twice to make sure GetLeague is idempotent
 		for range 2 {
 			got := store.GetLeague()
-			assertLeague(t, got, want)
+			AssertLeague(t, got, want)
 		}
 	})
 
@@ -34,11 +34,11 @@ func TestFileSystemStore(t *testing.T) {
 		defer cleanDatabase()
 
 		store, err := NewFileSystemPlayerStore(database)
-		assertNoError(t, err)
+		AssertNoError(t, err)
 
 		got := store.GetPlayerScore("Chris")
 		want := 33
-		assertScoreEquals(t, got, want)
+		AssertScoreEquals(t, got, want)
 	})
 
 	t.Run("store wins for existing players", func(t *testing.T) {
@@ -48,13 +48,13 @@ func TestFileSystemStore(t *testing.T) {
 		defer cleanDatabase()
 
 		store, err := NewFileSystemPlayerStore(database)
-		assertNoError(t, err)
+		AssertNoError(t, err)
 
 		store.RecordWin("Chris")
 
 		got := store.GetPlayerScore("Chris")
 		want := 34
-		assertScoreEquals(t, got, want)
+		AssertScoreEquals(t, got, want)
 	})
 
 	t.Run("store wins for new players", func(t *testing.T) {
@@ -64,13 +64,13 @@ func TestFileSystemStore(t *testing.T) {
 		defer cleanDatabase()
 
 		store, err := NewFileSystemPlayerStore(database)
-		assertNoError(t, err)
+		AssertNoError(t, err)
 
 		store.RecordWin("Pepper")
 
 		got := store.GetPlayerScore("Pepper")
 		want := 1
-		assertScoreEquals(t, got, want)
+		AssertScoreEquals(t, got, want)
 	})
 
 	t.Run("works with an empty file", func(t *testing.T) {
@@ -79,7 +79,7 @@ func TestFileSystemStore(t *testing.T) {
 
 		_, err := NewFileSystemPlayerStore(database)
 
-		assertNoError(t, err)
+		AssertNoError(t, err)
 	})
 }
 
